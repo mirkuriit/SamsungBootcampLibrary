@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="2022-06-11--0004-comment" author="mirkuriit">
+        <preConditions>
+            <not>
+                <tableExists tableName="comment"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="comment">
+            <column name="id"
+                    type="NUMERIC(19,0)"
+                    autoIncrement="true">
+
+                <constraints
+                        nullable="false"
+                        primaryKey="true"/>
+            </column>
+
+            <column name="content"
+                    type="VARCHAR(400)">
+
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="book_id"
+                    type="NUMERIC(19,0)">
+
+                <constraints nullable="false"
+                             foreignKeyName="fk_comment_book"
+                             deleteCascade="false"
+                             references="book(id)"/>
+
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>
